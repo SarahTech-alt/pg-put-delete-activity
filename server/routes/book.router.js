@@ -38,27 +38,11 @@ router.post('/',  (req, res) => {
 // Updates a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
 // Request body must include the content to update - the status
-router.put('/:id',  (req, res) => {
-  let book = req.body; // Book with updated content
-  let id = req.params.id; // id of the book to update
 
-  console.log(`Updating book ${id} with `, book);
-
-  // TODO - REPLACE BELOW WITH YOUR CODE
-  res.sendStatus(500);
-
-});
 
 // TODO - DELETE 
 // Removes a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
-router.delete('/:id',  (req, res) => {
-  let id = req.params.id; // id of the thing to delete
-  console.log('Delete route called with id of', id);
 
-  // TODO - REPLACE BELOW WITH YOUR CODE
-  res.sendStatus(500);
-
-});
 
 module.exports = router;

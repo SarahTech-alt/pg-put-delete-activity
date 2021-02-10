@@ -54,10 +54,11 @@ function renderBooks(books) {
   for(let i = 0; i < books.length; i += 1) {
     let book = books[i];
     // For each book, append a new row to our table
-    let $tr = $('<tr></tr>');
-    $tr.data('book', book);
-    $tr.append(`<td>${book.title}</td>`);
-    $tr.append(`<td>${book.author}</td>`);
-    $('#bookShelf').append($tr);
+    $('#bookShelf').append(`
+      <tr>
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+      </tr>
+    `);
   }
 }
