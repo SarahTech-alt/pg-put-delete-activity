@@ -16,13 +16,13 @@ Use the provided `database.sql` file to create the `books` table and setup some 
 
 ### Remove a book
 
-Users want to be able to remove a book from the book list.  Add a `Delete` button for each book. There is starter code provided in the `book.router.js` file for the DELETE route. Update this to use the book id to remove it from the database.
+Users want to be able to remove a book from the book list.  Add a `Delete` button for each book. This should make an AJAX call to a `DELETE` endpoint, passing the book `id` as a URL parameter, and removing the book from the database.
 
 ### Update a book
 
-Users also want to be able to mark a book as read. The database has already been setup with a status column, but this is not currently shown on the page. Update the book list display to show if a book has been read or not. 
+Users also want to be able to mark a book as read. The database has already been setup with a `isRead` column, but this is not currently rendered on the DOM. Update the book list display to show if a book has been read or not. 
 
-Add another button to each book allowing the user to `Mark as Read`. Again, starter code is provided in the `book.router.js`. When a book has been read, the status should be changed to `Read`. 
+Add another button to each book allowing the user to `Mark as Read`. This should trigger a `PUT` AJAX call, passing the book `id` as a URL parameter, and update the book record in the database.
 
 ### Task list
 
@@ -55,7 +55,7 @@ When the submit button is clicked:
 
 - [ ] Add validation to the add input form
     - The client side code should make sure that required fields are filled in. You can do this by making the HTML inputs required. Make sure to do something so the user can tell which fields are required. 
-    - The server side should also check that it gets all required fields. If required fields are missing, send back a 500 status.
+    - The server side should also check that it gets all required fields. If required fields are missing, send back a 400 status code.
 - [ ] Add a way to change the order in which books are shown - sort by title vs sort by author
 - [ ] Improve the styling of the page -- Bootstrap & CSS
     - [ ] Improve the table layout. Give alternating rows a difference in color
