@@ -50,7 +50,6 @@ function refreshBooks() {
 // Displays an array of books to the DOM
 function renderBooks(books) {
   $('#bookShelf').empty();
-
   for (let i = 0; i < books.length; i += 1) {
     let book = books[i];
     // For each book, append a new row to our table
@@ -77,7 +76,7 @@ function deleteBook() {
     url: `/books/${bookId}`
   }).then(function (response) {
     console.log('Book deleted');
-    renderBooks();
+    refreshBooks();
   }).catch(function (error) {
     console.log('Error in deleting book', error);
   })
