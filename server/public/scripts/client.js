@@ -7,6 +7,7 @@ $(document).ready(function () {
 function addClickHandlers() {
   $('#submitBtn').on('click', handleSubmit);
   $('#bookShelf').on('click', '.delete-button', deleteBook);
+  $('#bookShelf').on('click', '.read-button', markRead);
   // TODO - Add code for edit & delete buttons
 }
 
@@ -57,9 +58,14 @@ function renderBooks(books) {
       <tr>
         <td>${book.title}</td>
         <td>${book.author}</td>
+        <td>${book.isRead}</td>
         <td>
         <button class="delete-button" data-id="${book.id}">
-        Delete Button
+        Delete
+        </button>
+        </td>
+        <td>
+        <button class="read-button" data-id="${book.id}"> Mark Read
         </button>
         </td>
       </tr>
@@ -67,17 +73,44 @@ function renderBooks(books) {
   }
 }
 
+// Called when the delete button is pushed
 function deleteBook() {
   console.log($(this));
+  // getting the unique book id and setting it to bookId
   const bookId = $(this).data('id');
   console.log(bookId);
   $.ajax({
+    // calling a DELETE method and sending the unique id
+    // as a parameter
     method: 'DELETE',
     url: `/books/${bookId}`
   }).then(function (response) {
+    // After the book is deleted inform the user and
+    // refresh the book list on the DOM
     console.log('Book deleted');
     refreshBooks();
   }).catch(function (error) {
-    console.log('Error in deleting book', error);
+    console.log('Error in deleting book');
+  })
+}
+
+
+// Called when the update button is pushed
+function markRead() {
+  console.log($(this));
+  // getting the unique book id and setting it to bookRead
+  let bookRead = $(this).data('id');
+  $.ajax({
+    // calling a PUT method and sending the unique id
+    // as a parameter
+    method: 'PUT',
+    url: `/books/${bookRead}`
+  }).then(function (response) {
+    // Let the user know the book was updated
+    console.log('Book updated!');
+    // Refresh the book list on the DOM
+    refreshBooks();
+  }).catch(function (error) {
+    console.log('There was an error updating!');
   })
 }

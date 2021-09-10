@@ -10,15 +10,15 @@ router.get('/', (req, res) => {
     // Sends back the results in an object
     res.send(result.rows);
   })
-  .catch(error => {
-    console.log('error getting books', error);
-    res.sendStatus(500);
-  });
+    .catch(error => {
+      console.log('error getting books', error);
+      res.sendStatus(500);
+    });
 });
 
 // Adds a new book to the list of awesome reads
 // Request body must be a book object with a title and author.
-router.post('/',  (req, res) => {
+router.post('/', (req, res) => {
   let newBook = req.body;
   console.log(`Adding book`, newBook);
 
@@ -40,18 +40,55 @@ router.post('/',  (req, res) => {
 // Request body must include the content to update - the status
 
 
+/**
+ * @api {put} /songs/:id Set to Read
+ * @apiDescription Set the status of a book to read that matches
+ * the id provided
+ * 
+ * @apiParam {number} The id of the book to set to read
+ */
+
+
+router.put('/:id', (req, res) => {
+  console.log(req.params);
+  const bookRead = req.params.id;
+  const queryText = 'UPDATE "books" SET "isRead" = true WHERE id = $1;'
+  pool.query(queryText, [
+    bookRead
+  ]).then((result) => {
+    res.sendStatus(200);
+  }).catch((error) => {
+    res.sendStatus(500);
+  })
+})
+
 // TODO - DELETE 
 // Removes a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
 
-router.delete('/:id', (req,res) =>{
+/**
+ * @api {put} /songs/:id Delete book
+ * @apiDescription Delete a book from the database that matches
+ * the id provided
+ * 
+ * @apiParam {number} The id of the book to delete
+ */
+
+
+router.delete('/:id', (req, res) => {
+  // checking parameters requestd
   console.log(req.params);
+  // set variable for parameter's 'id' attribute
   const bookId = req.params.id;
+  // create query to send to SQL
   const queryText = 'DELETE FROM "books" where "id" = $1';
+  // send query to SQL with the unique ID
   pool.query(queryText, [bookId]).then(result => {
+    // let user know it was successful and send status code
     console.log('success in deleting book');
     res.sendStatus(201);;
   }).catch(error => {
+    // let user know there was an error and send status code
     console.log('error in deleting book', error);
     res.sendStatus(500);
   })
